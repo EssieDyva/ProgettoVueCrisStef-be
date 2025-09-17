@@ -1,7 +1,5 @@
 package com.criste.models;
 
-import java.io.Serializable;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,16 +14,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "fermate")
-public class Fermate implements Serializable {
+@Table(name = "numeri_linea")
+public class NumeriLinea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_FERMATA")
+    @Column(name = "ID_LINEA")
     private Integer idFermata;
 
-    @Column(name = "NOME_FERMATA")
-    private String nomeFermata;
     @Column(name = "NUMERO_LINEA")
     private Integer numeroLinea;
 }
