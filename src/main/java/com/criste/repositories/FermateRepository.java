@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FermateRepository extends JpaRepository<Fermate, Integer> {
     List<Fermate> findByNomeFermata(String nomeFermata);
+
+    List<Fermate> findByLinea_NumeroLinea(int numeroLinea);
 }
