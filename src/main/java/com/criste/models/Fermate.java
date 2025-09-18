@@ -26,6 +26,7 @@ public class Fermate implements Serializable {
 
     @Column(name = "NOME_FERMATA")
     private String nomeFermata;
+
     @Column(name = "NUMERO_LINEA")
     private Integer numeroLinea;
 }
