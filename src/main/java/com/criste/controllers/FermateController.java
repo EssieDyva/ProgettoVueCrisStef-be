@@ -1,9 +1,7 @@
 package com.criste.controllers;
 
 import com.criste.models.Fermate;
-import com.criste.models.NumeriLinea;
 import com.criste.repositories.FermateRepository;
-import com.criste.repositories.NumeriLineaRepository;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +23,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class FermateController {
 
     private final FermateRepository fermataRepository;
-    private final NumeriLineaRepository numeriLineaRepository;
 
-    public FermateController(FermateRepository fermataRepository, NumeriLineaRepository numeriLineaRepository) {
+    public FermateController(FermateRepository fermataRepository) {
         this.fermataRepository = fermataRepository;
-        this.numeriLineaRepository = numeriLineaRepository;
     }
 
     @GetMapping("/listaFermate")
@@ -38,27 +34,9 @@ public class FermateController {
         return ResponseEntity.ok(fermate);
     }
 
-    @GetMapping("/listaNumerilinea")
-    public ResponseEntity<List<NumeriLinea>> getAllNumeriLinea() {
-        List<NumeriLinea> linee = numeriLineaRepository.findAll();
-        return ResponseEntity.ok(linee);
-    }
-
-    @GetMapping("/fermatePerLinea/{numeroLinea}")
-    public ResponseEntity<List<Fermate>> getFermateByNumeroLinea(@PathVariable Integer numeroLinea) {
-        List<Fermate> fermate = fermataRepository.findByNumeroLinea(numeroLinea);
-        if (fermate.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(fermate);
-    }
-
     @PostMapping("/aggiungiFermata")
     public ResponseEntity<Fermate> postFermata(@Validated @RequestBody Fermate fermate) {
         Fermate nuovaFermata = fermataRepository.save(fermate);
-        if (nuovaFermata == null) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(nuovaFermata);
     }
 
@@ -67,7 +45,6 @@ public class FermateController {
         if (!fermataRepository.existsById(idFermata)) {
             return ResponseEntity.notFound().build();
         }
-
         try {
             fermataRepository.deleteById(idFermata);
             return ResponseEntity.ok().build();
